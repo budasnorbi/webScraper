@@ -1,0 +1,16 @@
+@import 'components/main';
+@import 'objects/main';
+@import 'reset';
+
+body{
+	width:100vw;
+	height:100vh;
+}
+
+#root{
+	display:flex;
+}
+
+::-webkit-scrollbar{
+	display: none;
+}

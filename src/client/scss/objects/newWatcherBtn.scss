@@ -1,0 +1,29 @@
+.new-watcher{
+	background-color: transparent;
+	mix-blend-mode: overlay;
+	width:3.5rem;
+	height:3.5rem;
+	display:block;
+	margin-left: auto;
+
+	font-size: 1.6rem;
+	color:white;
+
+	padding:1rem;
+
+	background-image: url('./../images/plus.svg');
+	background-size: 100%;
+	background-position: center;
+	
+	border:none;
+	border-radius:3px;
+	cursor: pointer;
+
+	opacity: .75;
+
+	transition: opacity .15s ease-in-out;
+
+	&:hover{
+		opacity: 1;
+	}
+}
