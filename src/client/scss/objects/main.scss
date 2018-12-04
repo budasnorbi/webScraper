@@ -1,2 +1,9 @@
-@import 'newWatcherBtn';
-@import 'appName';
+// Headings
+@import 'headings/watcherLogo';
+@import 'headings/watcherHeading';
+
+//Buttons
+@import 'buttons/saveWatcher';
+@import 'buttons/newWatcher';
+
+@import 'offerList';

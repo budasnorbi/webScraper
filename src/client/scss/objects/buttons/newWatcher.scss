@@ -1,25 +1,26 @@
 .new-watcher{
-	background-color: transparent;
-	mix-blend-mode: overlay;
 	width:3.5rem;
 	height:3.5rem;
+
 	display:block;
 	margin-left: auto;
+	padding:1rem;
 
 	font-size: 1.6rem;
 	color:white;
-
-	padding:1rem;
-
-	background-image: url('./../images/plus.svg');
-	background-size: 100%;
-	background-position: center;
-	
+		
 	border:none;
 	border-radius:3px;
 	cursor: pointer;
 
 	opacity: .75;
+
+	mix-blend-mode: overlay;
+
+	background-color: transparent;
+	background-image: url('./../images/plus.svg');
+	background-size: 100%;
+	background-position: center;
 
 	transition: opacity .15s ease-in-out;
 

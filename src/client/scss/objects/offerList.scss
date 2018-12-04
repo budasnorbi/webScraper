@@ -1,0 +1,54 @@
+.offer-list{
+	margin-bottom: 20px;
+	padding: 0 1rem;
+	
+	&__item{
+		display: inline-block;
+		height: 32px;
+		font-size: 14px;
+		font-weight: 500;
+		color: rgba(0,0,0,0.6);
+		line-height: 32px;
+		padding: 0 25px 0 15px;
+		border-radius: 16px;
+		background-color: #e4e4e4;
+		
+		background-image: url('./../images/close.svg');
+		background-repeat: no-repeat;
+		background-size: 16px;
+		background-position-y: calc((32px - 16px) /2);
+		background-position-x: calc(100% - 7px);
+		
+		margin:5px 2.5px;
+	}
+	
+	&__add{
+		display: inline-block;
+		height: 32px;
+		font-size: 14px;
+		font-weight: 500;
+		color: white;
+		line-height: 32px;
+		padding: 0 25px 0 15px;
+		border-radius: 16px;
+	
+		margin:5px 2.5px;	
+		background-image: url('./../images/add.svg');
+		background-color:#2ecc71;
+		background-repeat: no-repeat;
+		background-size: 16px;
+		background-position-y: calc((32px - 16px) /2);
+		background-position-x: calc(100% - 7px);
+	
+		transition: box-shadow .15s ease-in-out, transform .15s ease-in-out;
+	
+		box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.275);
+		cursor: pointer;
+	
+		&:active{
+			box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.275);
+			transform: translateY(1px);
+		}
+	}
+}
+

@@ -1,0 +1,27 @@
+.watcher-save{
+	display: block;
+    height: 36px;
+	line-height: 36px;
+	
+	border: none;
+    border-radius: 2px;
+	padding: 0 16px;
+	margin-left:auto;
+	border-radius: 18px;
+		
+	font-size: 14px;
+    text-transform: uppercase;
+	vertical-align: middle;
+	
+	-webkit-tap-highlight-color: transparent;
+	
+	text-decoration: none;
+    color: #fff;
+    background-color: #3498db;
+    text-align: center;
+    letter-spacing: .5px;
+    transition: background-color .2s ease-out;
+	cursor: pointer;
+
+	outline: 0;
+}

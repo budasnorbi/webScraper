@@ -28,6 +28,13 @@ module.exports = {
         ]
       },
       {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
+      },
+      {
         test:/\.(jpeg|png|svg)$/,
         use:[
             { 
