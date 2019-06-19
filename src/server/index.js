@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer');
+const URL = require('url').URL;
 
 const pricePath = {
 	'compker.hu': 'SPAN.new',
@@ -39,6 +40,8 @@ const offers = [
 	{"url":"http://www.infolex.hu/termekek/adatlap/46334/noblechairs-epic-gamer-szek-feketekek","elementPath":"P.termek-adatlap-brutto-ar > STRONG"},
 	{"url":"https://www.konzolvilag.hu/pc/noblechairs-epic-gamer-szek-fekete/piros-nbl-pu-red-002","elementPath":"DIV.sidebar > DIV.price > DIV.now"}
 ];
+
+
 // Test Page flow
 (async () => {
 	await puppeteer.launch({
@@ -49,7 +52,7 @@ const offers = [
 	});
 	const browser = await puppeteer.launch({ headless: true});
 	const page = await browser.newPage();
-	page.setUserAgent('Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.2125.111 Safari/557.36');
+	await page.setUserAgent('Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.2125.111 Safari/557.36');
 
 	await page.goto('https://irodai-forgoszek.arukereso.hu/noblechairs/epic-nbl-pu-p342158138/');
 	
@@ -58,35 +61,48 @@ const offers = [
 		...await page.$$eval('#offer-block-paying > div > a', nodes =>  nodes.map( node => node.href) )
 	];
 
-	page.close();
+	await page.close();
 
 	const offerRequests = offerLinks.map( offerUrl => async() => {
 		const page = await browser.newPage();
+
+		page.on('error', e => {
+			console.log('hiba: ' + e);
+		});
+
 		page.setUserAgent('Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2125.111 Safari/557.36');
 
-		await page.goto(offerUrl, {timeout: 0});
+		await page.goto(offerUrl, {timeout: 60000});
 
 		const ruleKey = new URL(page.url()).host.replace('www.','');
 		const priceSelector = pricePath[ruleKey];
-		const priceNode = await page.$eval(priceSelector, priceNode => priceNode.textContent);
-		
+
+		let priceNode;
+		try{
+			await page.waitForSelector(priceSelector);
+
+			priceNode = await page.$eval(priceSelector, priceNode => priceNode.textContent
+				.replace(/\s/g, '')
+				.replace('Ft', '')
+				.replace(/\D+/g, ''));
+		}
+		catch(e){
+			priceNode = `${ruleKey}: itt nem kapható ez a szar`;
+		}
+
 		await page.close();
-		return priceNode.replace(/\s/g,'').replace('Ft', '').replace(/\D+/g, '');
+		return priceNode;
 	});
 
 	const prices = [];
 	
 	for (let i = 0; i < offerRequests.length; i++) {
-		try{
-			const price = await offerRequests[i]();
-			console.log(price);
-			prices.push(price);
-		} catch(e) {
-
-		}
+		prices.push(await offerRequests[i]());
 	}
+	console.log(prices);
+	console.log('Szűrt oldalak száma:' + prices.length);
 
-	
+	await browser.close();
 
 })();
 
